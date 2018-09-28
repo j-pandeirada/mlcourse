@@ -18,7 +18,7 @@ for iter = 1:num_iters
     gradJ=(1/m)*(h-y)'*X;
     %update theta parameters
     theta=theta-alpha*gradJ';
-    % ============================================================
+    % ===========================================================
 
     % Save the cost J in every iteration    
     J_history(iter) = computeCost(X, y, theta);
