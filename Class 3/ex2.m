@@ -11,10 +11,10 @@ clear ; close all; clc
 %% Step 1: Load and Plot Data from file ex2data1.txt
 %  The first two columns contains the exam scores and the third column
 %  contains the label.
-load
+load ex2data1.txt
 
-X = 
-y = 
+X = ex2data1(:,1:2);
+y = ex2data1(:,3);
 
 fprintf(['Plotting data with + indicating (y = 1) examples and o ' ...
          'indicating (y = 0) examples.\n']);
@@ -22,11 +22,11 @@ fprintf(['Plotting data with + indicating (y = 1) examples and o ' ...
 plotData(X, y);
 
 % Add labels and legend
-xlabel
-ylabel
+xlabel('Exam 1 score')
+ylabel('Exame 2 score')
 
 % Specified in the plot order
-legend
+legend('Admitted','Not admitted')
 hold off;
 
 %% ============ Part 2: Compute Cost and Gradient ============
@@ -37,10 +37,10 @@ hold off;
 [m, n] = size(X);
 
 % Add extra FIRST column of 1 to X
-X = 
+X = [ones(m,1) X];
 
 % Initialize fitting parameters =0
-initial_theta =
+initial_theta = zeros(n+1,1);
 
 % Compute and display initial cost and gradient
 [cost, grad] = costFunction(initial_theta, X, y);
@@ -83,12 +83,12 @@ hold off;
 %  to predict the probability that a student with score 45 on exam 1 and 
 %  score 85 on exam 2 will be admitted.
 %
-probNewData = 
+probNewData = 1./(1+exp(-([1 45 85]*theta)))*100;
 fprintf(['For a student with scores 45 and 85, we predict an admission ' ...
          'probability of %f\n\n'], probNewData);
 
 % Compute accuracy on the training set
 %  Complete the code in predict.m
 p= predict(theta, X);
-fprintf('Train Accuracy: %f\n', mean(double(p== y)) * 100);
+fprintf('Train Accuracy: %f\n', mean(double(p==y)) * 100);
 
