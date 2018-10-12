@@ -13,8 +13,9 @@ p = zeros(m, 1);
 %               your learned logistic regression parameters. 
 %               You should set p to a vector of 0's and 1's
 %
-
-
+z = X*theta;
+h = 1./(1+exp(-z)); %sigmoid function applied to our hypothesis
+p = h >= 0.5;
 
 % =========================================================================
 end
