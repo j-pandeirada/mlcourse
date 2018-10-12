@@ -16,12 +16,12 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %            
 
-h=
+z = X*theta;
+h = 1./(1+exp(-z)); %sigmoid function applied to our hypothesis
 
-J=
+J = sum(-y.*log(h)-(1-y).*log(1-h))/m + (lambda/(2*m))*sum(theta(2:end).^2);
 
-grad =
-
-grad(1)=
+grad = ((h-y)'*X)./m;
+grad(2:end) = grad(2:end) + (lambda*theta(2:end)./m)';
 % =============================================================
 end
