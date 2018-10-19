@@ -14,7 +14,7 @@ num_labels = 10;% 10 labels, from 1 to 10   (note that we have mapped "0" to lab
 % Load Data
  
 load ex3data1.mat
-m = ...;%number of examples
+m = length(y);%number of examples
 
 % Randomly select 100 data points (images) to display
 rand_indices = randperm(m);
