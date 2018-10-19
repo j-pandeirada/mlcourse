@@ -15,16 +15,17 @@ num_labels = size(all_theta, 1);
 p = zeros(size(X, 1), 1);
 
 % Add ones to the X data matrix
-X =
+X = [ones(m,1) X];
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Complete the code to make predictions using
 % the learned logistic regression parameters (one-vs-all).
 %You should set p to a vector of predictions (from 1 to num_labels).
 
-h = 
-[var,ind]=max(h');
-p=
+z = all_theta * X';
+h = 1./(1+exp(-z)); %sigmoid function applied to our hypothesis
+[var,ind]=max(h);
+p=ind;
 
 % =========================================================================
 end
