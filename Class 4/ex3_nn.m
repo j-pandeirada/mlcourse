@@ -13,8 +13,8 @@ num_labels = 10;          % 10 labels, from 1 to 10  (0 is mapped to label 10)
 
 %% =========== Part 1: Load and Visualize Some Images =============
 % Load Training Data
-.....
-m = ..... %number of examples
+load ex3data1.mat
+m = length(y);%number of examples
 
 % Randomly select 100 data points to display
 sel = randperm(m);
@@ -37,7 +37,7 @@ load('ex3weights.mat');
 
 pred = predict(Theta1, Theta2, X);
 
-fprintf('\nTraining Set Accuracy: %f\n', ?????);
+fprintf('\nTraining Set Accuracy: %f\n', mean(pred (:) == y(:)) * 100);
 
 %  To give you an idea of the network's output, you can also run
 %  through the examples one at the a time to see what it is predicting.
@@ -50,9 +50,10 @@ for i = 1:m
     fprintf('\nDisplaying Example Image\n');
     displayData(X(rp(i), :));
 
-    pred = predict(?,?,?);
-     
-    fprintf('\n NN Prediction: %d (True label %d) \n', ?, ? )
+    pred = predict(Theta1,Theta2,X(rp(i),:))
+    tru = y(rp(i),1);
+    
+    fprintf('\n NN Prediction: %d (True label %d) \n', pred, tru )
     
      % Pause
     fprintf('Program paused. Press enter to continue.\n');
