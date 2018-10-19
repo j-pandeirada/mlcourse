@@ -12,13 +12,13 @@ p = zeros(m, 1);
 % Complete the following code to make predictions using the trained NN. 
 %You should set p to a vector containing labels between 1 to num_labels.
 
-a1 =
-z2=
-a2 =
-z3=
-a3 =
+a1 = [ones(m,1) X];
+z2 = Theta1*a1';
+a2 = 1./(1+exp(-z2));a2=[ones(1,m);a2];
+z3 = Theta2*a2;
+a3 = 1./(1+exp(-z3));
 
-[~,ind]=max(a3');
+[~,ind]=max(a3);
 p=ind;
 % =========================================================================
 end
