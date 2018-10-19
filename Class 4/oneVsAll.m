@@ -14,7 +14,7 @@ n = size(X, 2); %number of features
 all_theta = zeros(num_labels, n + 1);
 
 % Add ones to the X data matrix
-X =
+X = [ones(m,1) X];
 
 % ====================== YOUR CODE HERE ======================
 % You should complete the following code to train num_labels
@@ -27,20 +27,23 @@ X =
 
   for c = 1:num_labels
 % Set Initial theta
-       initial_theta = 
+       initial_theta = zeros(n+1, 1); 
    
 % Set options for fmincg(similar to the previous lab work with fminunc)
 %choose for example 50 iterations
-      options = 
+      options = optimset('GradObj', 'on', 'MaxIter', 250);
       
 %Run fmincg to obtain the optimal theta (similar to the previous lab work with  fminunc) 
 %Use the costFunctionReg.m function you completed for the previous lab work. 
 % Hint: You can use y == c to obtain a binary vector y of 1's and 0's that
 % assigns 1 only for examples that belongs to class c
-
+    new_y = y==c;
+    % Optimize
+    [theta, J, exit_flag] = ...
+        fmincg(@(t)(costFunctionReg(t, X, new_y, lambda)), initial_theta, options);
 
 %Save the parameters of each binary classifier in one raw of matrix all_theta
-     all_theta(c,:)=
+     all_theta(c,:)= theta;
      
   end
 
