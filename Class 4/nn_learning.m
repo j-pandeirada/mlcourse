@@ -31,10 +31,12 @@ initial_theta = [theta.l1(:);theta.l2(:)];
 
 %% Run minimization -> NN Learning
 % Options for fminunc
-options = optimset('GradObj', 'on', 'MaxIter', 200);
+options = optimset('GradObj', 'on', 'MaxIter', 50);
+
+lambda = 1;
 
 [nn_params, cost] = ...
-	fmincg(@(t)(nnCostFunction(t, X, y_cod,sizes)), initial_theta, options);
+	fmincg(@(t)(nnCostFunction(t, X, y_cod,sizes,lambda)), initial_theta, options);
 
 %% Gather NN params and use it!
 % get theta matrices from unrolled version

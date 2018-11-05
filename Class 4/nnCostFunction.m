@@ -1,4 +1,4 @@
-function [J, grad] = nnCostFunction(thetaVec,X,y,sizes)
+function [J, grad] = nnCostFunction(thetaVec,X,y,sizes,lambda)
 %compute cost function of the neural network without regularization 
 
 %INPUTS:
@@ -30,8 +30,10 @@ delta.l2 = zeros(size(theta.l2,1),size(theta.l2,2));
 nodes = forwardprop(theta.l1,theta.l2,X);
 h = nodes.a3;
 
-%calculate cost -> without regularization
+%calculate cost -> with regularization
 J = sum(sum(-y.*log(h)-(1-y).*log(1-h)))/m;
+reg = (lambda/(2*m))*(sum(sum(theta.l1(:,2:end)))+sum(sum(theta.l2(:,2:end))));
+J = J + reg;
 
 %perform backward propagation for each training example
 for i=1:m
@@ -44,9 +46,9 @@ for i=1:m
     delta.l2 = delta.l2 + error.a3*nodes.a2(:,i)';
 end
 
-%finalize gradient vector -> without regularization
-D.l1 = delta.l1./m;
-D.l2 = delta.l2./m;
+%finalize gradient vector -> with regularization
+D.l1 = delta.l1./m + (lambda/m).*(theta.l1);
+D.l2 = delta.l2./m + (lambda/m).*(theta.l2);
 
 %unroll D1,D2,etc... to get grad
 grad = [D.l1(:);D.l2(:)];
