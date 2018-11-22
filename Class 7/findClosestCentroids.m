@@ -21,7 +21,7 @@ idx = zeros(size(X,1), 1);
 %
 for i=1:size(X,1),
     temp = (repmat(X(i,:),K,1) - centroids).^2; 
-    [mini idx(i)] = min(sqrt(sum(temp,2)));
+    [~,idx(i)] = min(sqrt(sum(temp,2)));
 end
 
 % =============================================================
